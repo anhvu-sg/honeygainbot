@@ -1,8 +1,23 @@
 import json
+import requests
 
 from pyHoneygain import HoneyGain
 from datetime import datetime, timedelta
 from time import sleep
+
+def ipinfo():
+    # Show current IP address
+    try:
+        res = requests.get('https://ipinfo.io')
+        status = res.status_code
+        if int(status) in (204, 404):  # Page not found, no response
+            response = False
+        else:
+            # Some answers return empty content
+            response = res.content and res.json() or {}
+            print(f"{response}\n", end="")
+    except:
+        pass
 
 def get_account_datas():
     return json.loads(open("./accounts/accounts.json", 'r').read())
@@ -25,6 +40,7 @@ def main():
 while True:
     print(f">>> HoneyGainBot ran on {datetime.now()}:\n", end="")
     try:
+        ipinfo()
         main()
     except:
         print("Some sort of error occurred!")
