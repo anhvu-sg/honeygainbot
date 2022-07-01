@@ -30,21 +30,19 @@ def main():
             user = HoneyGain()
             user.login(username, password)
             honeypot = user.open_honeypot()
-            print(f">>-> {honeypot}")
+            print(f">-> {honeypot}")
         except Exception as e:
             print(f"### Exception honeypot_by_account: %s" % (e))
-        waiting_time = 60*5 # Waiting 5 minutes for each account
-        print(f"** Next account: {datetime.now()+ timedelta(seconds=waiting_time)}:\n", end="")
-        sleep(waiting_time)
+        sleep(60*5)
 
 while True:
     print(f">>> HoneyGainBot ran on {datetime.now()}:\n", end="")
+    next_time = 60 * 60 * 24 # Every 24 hours
     try:
         ipinfo()
         main()
     except:
         print("Some sort of error occurred!")
-    next_time = 60 * 60 * 24 # Every 24 hours
     print(f"<<< Next time {datetime.now()+ timedelta(seconds=next_time)}:\n\n", end="")
     sleep(next_time)
 
