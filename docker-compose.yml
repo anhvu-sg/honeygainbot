@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  honey_bot:
+    image: vuna2004/honeybot
+    container_name: honey_bot
+    volumes:
+      - ./accounts:/bot/accounts
+    restart: unless-stopped
+volumes:
+  accounts:
