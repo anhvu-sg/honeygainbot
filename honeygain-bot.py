@@ -25,7 +25,7 @@ def get_account_datas():
 def main():
     accounts_datas = get_account_datas()
     for username, password in accounts_datas.items():
-        print(f"##- Account {username}")
+        print(f"##- Account {username[:3]}***")
         try:
             user = HoneyGain()
             user.login(username, password)
