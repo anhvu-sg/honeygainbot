@@ -1,5 +1,7 @@
+import os
 import json
 import requests
+import schedule
 
 from pyHoneygain import HoneyGain
 from datetime import datetime, timedelta
@@ -35,14 +37,23 @@ def main():
             print(f"### Exception honeypot_by_account: %s" % (e))
         sleep(60*5)
 
-while True:
-    print(f">>> HoneyGainBot ran on {datetime.now()}:\n", end="")
-    next_time = 60 * 60 * 24 # Every 24 hours
+def job():
+    print(f">>> START - HoneyGainBot ran on {datetime.now()}:\n\n", end="")
     try:
         ipinfo()
         main()
     except:
         print("Some sort of error occurred!")
-    print(f"<<< Next time {datetime.now()+ timedelta(seconds=next_time)}:\n\n", end="")
-    sleep(next_time)
+    print(f"<<< END HoneyGainBot ran on {datetime.now()}:\n\n", end="")
+    return
 
+HOUR_MIN = os.getenv('HOUR_MIN', '00:30')
+STR_HOUR_MIN = "%s" % HOUR_MIN
+print(f"Scheduler run everyday at {HOUR_MIN}")
+schedule.every().day.at(STR_HOUR_MIN).do(job)
+# https://schedule.readthedocs.io/en/stable/examples.html
+
+while True:
+    print(f'>> NOW: {datetime.now()}')
+    schedule.run_pending()
+    sleep(60*60)

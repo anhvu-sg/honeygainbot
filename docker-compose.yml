@@ -5,6 +5,8 @@ services:
     container_name: honey_bot
     volumes:
       - ./accounts:/bot/accounts
+    environment:
+      - HOUR_MIN=08:30
     restart: unless-stopped
 volumes:
   accounts:
