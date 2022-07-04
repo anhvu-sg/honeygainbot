@@ -40,7 +40,6 @@ def main():
 def job():
     print(f">>> START - HoneyGainBot ran on {datetime.now()}:\n\n", end="")
     try:
-        ipinfo()
         main()
     except:
         print("Some sort of error occurred!")
@@ -55,5 +54,6 @@ schedule.every().day.at(STR_HOUR_MIN).do(job)
 
 while True:
     print(f'>> NOW: {datetime.now()}')
+    ipinfo()
     schedule.run_pending()
     sleep(60*60)
